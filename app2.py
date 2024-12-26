@@ -29,13 +29,13 @@ def analyze_emotion(text):
 # 学習段階ごとのメッセージを生成する関数
 def generate_stage_message(stage, user_input):
     if stage == "zero_learning":
-        return f"基本知識を確認します: {user_input}"
+        return f"あなたの基本知識を確認します: {user_input}"
     elif stage == "first_learning":
         return f"新しい方法について考えてみましょう: {user_input}"
     elif stage == "second_learning":
         return f"あなたの考え方やパターンに焦点を当てます: {user_input}"
     elif stage == "third_learning":
-        return f"より大きな視点で世界観を再構築してみましょう: {user_input}"
+        return f"より大きな視点であなたの世界観を再構築してみましょう: {user_input}"
 
 # 学習進捗を更新する関数
 def update_progress(stage):
@@ -59,9 +59,11 @@ def visualize_progress():
 def interactive_simulation():
     st.write("### インタラクティブシミュレーション")
     scenario = random.choice([
-        "チームでの意見交換を成功させる方法を考える",
+        "チームでの意見交換を円滑に進める方法を考える",
         "新しいプロジェクトの計画を立てる",
-        "顧客からのフィードバックに対応する"
+        "お客さまからのフィードバックに対応する",
+        "経営陣向けの説明を円滑に進める方法を考える",
+        "対立する意見を持つ人々の対立状態を解消する"
     ])
     st.write(f"シナリオ: {scenario}")
     user_action = st.text_input("この状況でどう対応しますか？")
@@ -71,16 +73,16 @@ def interactive_simulation():
 
 # 推薦エンジン
 def personalized_recommendation():
-    st.write("### 個別化されたリソースの提案")
+    st.write("### あなたにおすすめの提案")
     progress = st.session_state["progress"]
     if progress["third_learning"] > 3:
-        st.write("おすすめリソース: 高度なケーススタディ")
+        st.write("おすすめの提案: 高度なケーススタディ")
     elif progress["second_learning"] > 3:
-        st.write("おすすめリソース: 思考パターンを深めるための読書")
+        st.write("おすすめの提案: 思考パターンを深めるための読書")
     elif progress["first_learning"] > 3:
-        st.write("おすすめリソース: 新しいスキルを学ぶためのオンラインコース")
+        st.write("おすすめの提案: 新しいスキルを学ぶためのオンライン講座")
     else:
-        st.write("おすすめリソース: 基礎知識を復習するための教材")
+        st.write("おすすめの提案: 基礎知識を復習するための教材")
 
 # チャットボットとやりとりする関数
 def communicate():
@@ -125,9 +127,9 @@ def communicate():
     st.session_state["user_input"] = ""
 
 # ユーザーインターフェイスの構築
-st.title("AI Coach SHIGERU: 学習進捗、シミュレーション、個別化")
+st.title("AI Coach べいとそん: 学びの段階・シミュレーション・次のステップに向けたおすすめの提案")
 
-user_input = st.text_input("今の気持ちや学びたいことを教えてください。", key="user_input", on_change=communicate)
+user_input = st.text_input("今の気持ちと学びたいことを教えてください。", key="user_input", on_change=communicate)
 
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
@@ -136,11 +138,11 @@ if st.session_state["messages"]:
         st.write(f"{speaker}: {message['content']}")
 
 # サマリー表示
-if st.button("学習進捗を可視化"):
+if st.button("学びの段階を見える化する"):
     visualize_progress()
 
-if st.button("シミュレーションを実行"):
+if st.button("シミュレーションにより学ぶ"):
     interactive_simulation()
 
-if st.button("おすすめリソースを見る"):
+if st.button("次のステップに向けたおすすめ提案を確認する"):
     personalized_recommendation()
